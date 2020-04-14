@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const xss = require("xss");
-const titleServices = require("./title-services.js");
+const TitleServices = require("./title-services.js");
 
 const titleRouter = express.Router();
 const jsonParser = express.json();
@@ -21,7 +21,8 @@ titleRouter.route("/").post(jsonParser, (req, res, next) => {
       res
         .status(201)
         .location(path.posix.join(req.originalUrl, `/${title.id}`))
-        .json(serializetitle(title));
+        .json(title);
     })
     .catch(next);
 });
+module.exports = titleRouter;
