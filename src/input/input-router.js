@@ -18,23 +18,16 @@ ScriptOptionsRouter.route("/")
 
   .post(jsonParser, (req, res, next) => {
     const { activeScripts } = req.body;
-    for (const [key, value] of Object.entries(activeScripts[i]))
-      if (value == null)
-        return res.status(400).json({
-          error: { message: `missing ${key} in request body` },
-        });
-    activeScripts
-      .map((script) => {
-        InputServices.insertScriptData(req.app.get("db"), script).then(
-          (folder) => {
-            res
-              .status(201)
-              .location(path.posix.join(req.originalUrl, `/${script.id}`))
-              .json(res);
-          }
-        );
-      })
+    // for (const [key, value] of Object.entries(activeScripts[i]))
+    //   if (value == null)
+    //     return res.status(400).json({
+    //       error: { message: `missing ${key} in request body` },
+    //     });
 
+    InputServices.insertScriptData(req.app.get("db"), activeScripts)
+      .then((data) => {
+        res.status(201).json(data);
+      })
       .catch(next);
   });
 

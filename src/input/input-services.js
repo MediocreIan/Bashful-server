@@ -8,7 +8,7 @@ const script_optionsService = {
       .into("script_data")
       .returning("*")
       .then((rows) => {
-        return rows[0];
+        return rows;
       });
   },
   insertScript(knex, newScript) {
