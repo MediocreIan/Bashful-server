@@ -26,7 +26,7 @@ ScriptOptionsRouter.route("/")
 
     InputServices.insertScriptData(req.app.get("db"), activeScripts)
       .then((data) => {
-        res.status(201).json(data);
+        res.status(200).json(data);
       })
       .catch(next);
   });
