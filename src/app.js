@@ -7,14 +7,14 @@ const { NODE_ENV } = require("./config");
 const inputRouter = require("./input/input-router");
 const titleRouter = require("./title-router.js");
 const app = express();
-
+const outputRouter = require("./output/output-router.js");
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 app.use("/input", inputRouter);
-
+app.use("/output", outputRouter);
 app.get("/hello", (req, res) => {
   res.send(JSON.stringify("Hello, world!"));
 });

@@ -1,20 +1,26 @@
 const outputServices = {
   generateScriptString(scriptArray) {
     let scriptString = "";
-    scriptArray.map((script) => {
+    scriptArray.forEach((script) => {
       if (script.type === "command") {
-        scriptString.append(`\n ${script.command}`);
+        scriptString += `\n ${script.command}`;
       }
-      if (script.type === "if") {
-        scriptString.append(`\n if [${condition}]; then \n ${command} fi`);
+      if (script.type === "If") {
+        scriptString += `\n if [${script.condition}]; then \n ${script.command} fi`;
       }
       if (script.type === "for") {
-        scriptString.append(
-          `\n for i in {1..${duration}}\n do \n ${command} \n done`
-        );
+        scriptString += `\n for i in {1..${script.duration}}\n do \n ${script.command} \n done`;
       }
-      return scriptString;
+      console.log(scriptString);
     });
+    return scriptString;
+  },
+
+  getById(knex, scriptId) {
+    return knex
+      .from("script_data")
+      .select("*")
+      .where("script_relation", scriptId);
   },
 };
 
