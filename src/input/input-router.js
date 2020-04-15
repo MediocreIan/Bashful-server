@@ -17,14 +17,14 @@ ScriptOptionsRouter.route("/")
   })
 
   .post(jsonParser, (req, res, next) => {
-    const { activeScripts } = req.body;
-    // for (const [key, value] of Object.entries(activeScripts[i]))
+    const { lines } = req.body;
+    // for (const [key, value] of Object.entries(lines[i]))
     //   if (value == null)
     //     return res.status(400).json({
     //       error: { message: `missing ${key} in request body` },
     //     });
 
-    InputServices.insertScriptData(req.app.get("db"), activeScripts)
+    InputServices.insertScriptData(req.app.get("db"), lines)
       .then((data) => {
         res.status(200).json(data);
       })

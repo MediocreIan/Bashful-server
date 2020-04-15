@@ -4,5 +4,9 @@ CREATE TABLE script_data(
     command TEXT NOT NULL,
     duration INTEGER,
     condition TEXT,
-    script_relation INTEGER REFERENCES script_titles(id) ON DELETE CASCADE NOT NULL
+    script_relation INTEGER REFERENCES script_titles(id) ON DELETE CASCADE NOT NULL,
+    description TEXT,
+    arg1 TEXT,
+    arg2 TEXT,
+    arg3 TEXT
 )
