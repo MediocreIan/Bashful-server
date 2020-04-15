@@ -31,4 +31,13 @@ ScriptOptionsRouter.route("/")
       .catch(next);
   });
 
+ScriptOptionsRouter.route("/commands").get((req, res, next) => {
+  const knexInstance = req.app.get("db");
+  InputServices.getAllCommands(knexInstance)
+    .then((commands) => {
+      return res.json(commands);
+    })
+    .catch(next);
+});
+
 module.exports = ScriptOptionsRouter;

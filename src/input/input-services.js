@@ -2,6 +2,9 @@ const script_optionsService = {
   getAllscript_options(knex) {
     return knex.select("*").from("script_options");
   },
+  getAllCommands(knex) {
+    return knex.select("*").from("command_options");
+  },
   insertScriptData(knex, newScript) {
     return knex
       .insert(newScript)
