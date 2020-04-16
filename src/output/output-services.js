@@ -1,8 +1,9 @@
 const outputServices = {
   generateScriptString(scriptArray) {
-    let scriptString = "";
+    let scriptString = "#!/bin/bash";
     scriptArray.forEach((script) => {
       if (script.type === "command") {
+        console.log(scriptString);
         scriptString += `\n ${script.command} ${script.arg1}`;
       }
       if (script.type === "If") {

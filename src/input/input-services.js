@@ -33,6 +33,12 @@ const script_optionsService = {
   updateScript(knex, id, newScriptFields) {
     return knex("script_options").where({ id }).update(newScriptFields);
   },
+  getByRelation(knex, scriptId) {
+    return knex
+      .from("script_data")
+      .select("*")
+      .where("script_relation", scriptId);
+  },
 };
 
 module.exports = script_optionsService;
