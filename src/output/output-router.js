@@ -11,7 +11,6 @@ outputRouter.route("/:scriptId").get((req, res, next) => {
   outputServices
     .getById(req.app.get("db"), req.params.scriptId)
     .then((data) => {
-      console.log("************************", data);
       return outputServices.generateScriptString(data);
     })
     .then((string) => {
