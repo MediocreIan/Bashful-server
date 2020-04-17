@@ -2,11 +2,12 @@ const path = require("path");
 const express = require("express");
 const xss = require("xss");
 const TitleServices = require("./title-services.js");
+const { requireAuth } = require("./middleware/jwt-auth");
 
 const titleRouter = express.Router();
 const jsonParser = express.json();
 
-titleRouter.route("/").post(jsonParser, (req, res, next) => {
+titleRouter.route("/").post(requireAuth, jsonParser, (req, res, next) => {
   const { title } = req.body;
   const newScript = { title };
 
@@ -16,6 +17,7 @@ titleRouter.route("/").post(jsonParser, (req, res, next) => {
         error: { message: `Missing '${key}' in request body` },
       });
   newScript.title = title;
+  newScript.user_id = req.user.id;
   TitleServices.insertTitle(req.app.get("db"), newScript)
     .then((title) => {
       res
@@ -25,4 +27,5 @@ titleRouter.route("/").post(jsonParser, (req, res, next) => {
     })
     .catch(next);
 });
+
 module.exports = titleRouter;

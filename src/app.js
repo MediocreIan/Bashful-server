@@ -9,6 +9,8 @@ const titleRouter = require("./title-router.js");
 const app = express();
 const outputRouter = require("./output/output-router.js");
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
+const usersRouter = require("./users/users-router");
+const authRouter = require("./auth/auth-router");
 
 app.use(morgan(morganOption));
 app.use(helmet());
@@ -18,6 +20,8 @@ app.use("/output", outputRouter);
 app.get("/hello", (req, res) => {
   res.send(JSON.stringify("Hello, world!"));
 });
+app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
 app.use("/", titleRouter);
 
