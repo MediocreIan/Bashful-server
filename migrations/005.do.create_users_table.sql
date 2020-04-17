@@ -12,4 +12,4 @@ CREATE TABLE bashful_users (
 ALTER TABLE script_titles
   ADD COLUMN
     author_id INTEGER REFERENCES bashful_users(id)
-    ON DELETE SET NULL;
+    ON DELETE CASCADE;
