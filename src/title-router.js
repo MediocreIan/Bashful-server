@@ -7,8 +7,8 @@ const { requireAuth } = require("./middleware/jwt-auth");
 const titleRouter = express.Router();
 const jsonParser = express.json();
 
-titleRouter.route("/").post(requireAuth, jsonParser, (req, res, next) => {
-  const { title } = req.body;
+titleRouter.route("/").post(jsonParser, (req, res, next) => {
+  const { title, author_id } = req.body;
   const newScript = { title };
 
   for (const [key, value] of Object.entries(newScript))
@@ -17,7 +17,7 @@ titleRouter.route("/").post(requireAuth, jsonParser, (req, res, next) => {
         error: { message: `Missing '${key}' in request body` },
       });
   newScript.title = title;
-  newScript.user_id = req.user.id;
+  newScript.author_id = author_id;
   TitleServices.insertTitle(req.app.get("db"), newScript)
     .then((title) => {
       res

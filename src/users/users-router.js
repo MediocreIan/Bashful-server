@@ -47,13 +47,17 @@ usersRouter.post("/", jsonBodyParser, (req, res, next) => {
     })
     .catch(next);
 });
-usersRouter.route("/:userId").get(requireAuth, (req, res, next) => {
-  const knexInstance = req.app.get("db");
-  UsersService.getByUser(knexInstance, req.params.userId)
-    .then((scripts) => {
-      return res.json(scripts);
-    })
-    .catch(next);
-});
+usersRouter.route("/:userId").get(
+  // requireAuth,
+  (req, res, next) => {
+    const knexInstance = req.app.get("db");
+    UsersService.getByUser(knexInstance, req.params.userId)
+      .then((scripts) => {
+        return res.json(scripts);
+      })
+      .then(console.log(req.params.userId))
+      .catch(next);
+  }
+);
 
 module.exports = usersRouter;
